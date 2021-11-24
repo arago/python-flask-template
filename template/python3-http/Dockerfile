@@ -38,13 +38,13 @@ USER root
 COPY function/   .
 RUN chown -R app:app ../
 
-ARG TEST_COMMAND=tox
-ARG TEST_ENABLED=true
-RUN if [ "$TEST_ENABLED" == "false" ]; then \
-    echo "skipping tests";\
-    else \
-    eval "$TEST_COMMAND"; \
-    fi
+# ARG TEST_COMMAND=tox
+# ARG TEST_ENABLED=true
+# RUN if [ "$TEST_ENABLED" == "false" ]; then \
+#     echo "skipping tests";\
+#     else \
+#     eval "$TEST_COMMAND"; \
+#     fi
 
 WORKDIR /home/app/
 
