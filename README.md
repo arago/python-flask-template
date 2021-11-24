@@ -32,13 +32,7 @@ Are you referencing pip modules which require a native build toolchain? It's adv
 Using template pull:
 
 ```bash
-faas template pull https://github.com/openfaas-incubator/python-flask-template
-```
-
-Using template store:
-
-```bash
-faas template store pull python3-flask
+faas template pull https://github.com/arago/python-flask-template
 ```
 
 # Using the python3-flask template
