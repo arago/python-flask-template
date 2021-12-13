@@ -8,18 +8,25 @@ ARG BUILDPLATFORM
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
+
 RUN chmod 777 /tmp
 
 USER deno
 WORKDIR /home/app
 COPY deps.ts ./
 COPY mod.ts ./
-COPY function/ ./function
-RUN deno install --allow-net --allow-read --root /home/app -n fn mod.ts \
-    && chmod + /home/app/bin/fn
+
+USER root
+RUN mkdir /home/app/function
+USER deno
+WORKDIR /home/app/function
+COPY function/ ./
+
+WORKDIR /home/app
+RUN deno cache mod.ts
 
 ENV cgi_headers="true"
-ENV fprocess="/home/app/bin/fn"
+ENV fprocess="deno run --allow-net --allow-read --allow-env mod.ts"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:3000"
 
